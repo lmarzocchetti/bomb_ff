@@ -8,6 +8,7 @@ clock = pygame.time.Clock()
 fps = 30
 
 prova = pygame.image.load("res/characters/terra_down.png")
+prova = pygame.transform.scale(prova, (prova.get_size()[0] * 2, prova.get_size()[1] * 2))
 sas = pygame.rect.Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
 
 
