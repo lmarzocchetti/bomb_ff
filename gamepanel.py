@@ -3,7 +3,7 @@ from levelfactory import LevelFactory
 
 prova = pygame.image.load("res/characters/terra_down.png")
 prova = pygame.transform.scale(prova, (prova.get_size()[0] * 2, prova.get_size()[1] * 2))
-sas = pygame.rect.Rect(0, 0, 640, 480)
+sas = pygame.rect.Rect(0, 0, 1280, 720)
 
 
 class Gamepanel:
@@ -21,16 +21,14 @@ class Gamepanel:
         self.maincycle()
 
     def maincycle(self):
+        self.clock.tick(self.fps)
+        LevelFactory.world_1()
         while self.isRunning:
-            self.clock.tick(self.fps)
             self.screen.fill((255, 255, 255), rect=sas)
             self.screen.blit(prova, (self.SCREEN_HEIGHT / 2, self.SCREEN_WIDTH / 2))
 
             pygame.display.update()
 
-    def init(self):
-        for i in range(8):
-            for j in range(8):
-                print(i)
-                if self.world == i and self.level == j:
-                    self.ret_level = LevelFactory((self.world, self.level))
+    def level_init(self):
+        if self.world == 1:
+            pass
