@@ -1,5 +1,5 @@
 import pygame
-from levelfactory import LevelFactory
+import levelfactory
 
 prova = pygame.image.load("res/characters/terra_down.png")
 prova = pygame.transform.scale(prova, (prova.get_size()[0] * 2, prova.get_size()[1] * 2))
@@ -17,12 +17,12 @@ class Gamepanel:
         self.world, self.level = world_level[0], world_level[1]
         self.ret_level = {}
         self.clock = pygame.time.Clock()
+        self.board = self.level_init()
 
         self.maincycle()
 
     def maincycle(self):
         self.clock.tick(self.fps)
-        LevelFactory.world_1()
         while self.isRunning:
             self.screen.fill((255, 255, 255), rect=sas)
             self.screen.blit(prova, (self.SCREEN_HEIGHT / 2, self.SCREEN_WIDTH / 2))
@@ -30,5 +30,12 @@ class Gamepanel:
             pygame.display.update()
 
     def level_init(self):
+        """
+        simple ifs and elifs
+        :return: boardgame as an 2D array of 0(anything), and the "Part" enumeration
+        """
         if self.world == 1:
-            pass
+            if self.level == 1:
+                return levelfactory.LevelFactory.world_1()
+        else:
+            return levelfactory.LevelFactory.world_1()

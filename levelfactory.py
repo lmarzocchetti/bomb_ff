@@ -49,27 +49,32 @@ class LevelFactory:
                 i -= 1
 
     @staticmethod
+    def populate_hardblock(board):
+        for i in range(11):
+            for j in range(13):
+                if i % 2 != 0 and j % 2 != 0:
+                    board[i][j] = Part['HARDBLOCK']
+
+    @staticmethod
     def world_1():
         """
         Initialize a 2D array with hardblocks in fixed positions.
         Set the player, and call 2 function to populate this gameboard with softblocks and enemies
         :return: a 2D array which represent the new gameboard.
         """
-        board = [[0 for i in range(13)]for j in range(11)]
+        board = [[0 for x in range(13)]for y in range(11)]
 
         # initialization for the normal blocks.
         # in world 1 these blocks are in the odd position of the matrix
-        for i in range(11):
-            for j in range(13):
-                if i % 2 != 0 and j % 2 != 0:
-                    board[i][j] = Part.HARDBLOCK
+        LevelFactory.populate_hardblock(board)
 
-        board[0][0] = Part.PLAYER
+        board[0][0] = Part['PLAYER']
 
         # initialization for the destructible blocks.
         LevelFactory.populate_softblock(board)
         LevelFactory.spawn_enemies(board)
 
+        # TEST
         print(board)
 
         return board
