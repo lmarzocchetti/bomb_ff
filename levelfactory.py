@@ -64,17 +64,14 @@ class LevelFactory:
         """
         board = [[0 for x in range(13)]for y in range(11)]
 
+        board[0][0] = Part['PLAYER']
+
         # initialization for the normal blocks.
         # in world 1 these blocks are in the odd position of the matrix
         LevelFactory.populate_hardblock(board)
 
-        board[0][0] = Part['PLAYER']
-
         # initialization for the destructible blocks.
         LevelFactory.populate_softblock(board)
         LevelFactory.spawn_enemies(board)
-
-        # TEST
-        print(board)
 
         return board

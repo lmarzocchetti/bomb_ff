@@ -8,4 +8,5 @@ class Enemy(Player):
         self.myAI = None
 
     def draw(self):
-        pass
+        if self.isAlive:
+            pygame.draw.rect(self.screen, (205, 0, 205), self.hitbox, 2)

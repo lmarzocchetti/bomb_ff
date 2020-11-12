@@ -480,7 +480,7 @@
 											"top": 316,
 											"width": 241.8000946044922,
 											"height": 13,
-											"text": "+levelMap: Matrix",
+											"text": "+board: Matrix",
 											"horizontalAlignment": 0
 										}
 									],
@@ -6965,7 +6965,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF1icDg08BKXRo="
 							},
-							"name": "levelMap",
+							"name": "board",
 							"type": "Matrix"
 						}
 					],
