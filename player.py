@@ -11,8 +11,8 @@ class Directions(Enum):
 
 
 class Player(Entity):
-    def __init__(self, x, y, coll_rect):
-        super(Player, self).__init__(x, y)
+    def __init__(self, x, y, screen, coll_rect):
+        super(Player, self).__init__(x, y, screen)
         self.velocity = 5
         self.animationsNumber = 3
         self.walkCount = 0
@@ -27,15 +27,19 @@ class Player(Entity):
     def moveUp(self):
         if self.y - self.velocity > self.coll_rect.top:
             self.y -= self.velocity
+            self.hitbox.top -= self.velocity
 
     def moveDown(self):
         if self.y + self.velocity < self.coll_rect.top + self.coll_rect.height:
             self.y += self.velocity
+            self.hitbox.top += self.velocity
 
     def moveLeft(self):
         if self.x - self.velocity > self.coll_rect.bottom:
             self.x -= self.velocity
+            self.hitbox.left -= self.velocity
 
     def moveRight(self):
         if self.x + self.velocity < self.coll_rect.bottom + self.coll_rect.width:
             self.x += self.velocity
+            self.hitbox.left += self.velocity
