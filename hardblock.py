@@ -1,10 +1,12 @@
 import pygame
 from entity import Entity
+from blockfactory import Blockfactory
 
 
 class Hardblock(Entity):
     def __init__(self, x, y, screen):
         super(Hardblock, self).__init__(x, y, screen)
+        self.sprite = Blockfactory.blocks_1()["hardblock"]
 
     def draw(self):
-        pygame.draw.rect(self.screen, (255, 0, 0), self.hitbox, 2)
+        self.screen.blit(self.sprite, (self.x, self.y))

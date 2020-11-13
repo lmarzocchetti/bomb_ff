@@ -13,15 +13,14 @@ class Protagonist(Player):
         self.numberOfBombs = 1
         self.bomb_vec = bomb_vec
         self.character = character
-        self.sprite_dic = {}
+        self.sprite_dic = Playerfactory.terra()
 
         self.initChar()
 
-        print(self.sprite_dic)
-
     def draw(self):
         if self.isAlive:
-            pygame.draw.rect(self.screen, (0, 0, 255), self.hitbox, 2)
+            # aggiustare lo spawn point del disegno, spostare in alto(?)
+            self.screen.blit(self.sprite_dic["down"][0], (self.x, self.y))
 
     def initChar(self):
         if self.character is "Terra":

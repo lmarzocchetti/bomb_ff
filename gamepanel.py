@@ -6,16 +6,9 @@ from protagonist import Protagonist
 from enemy import Enemy
 from playerfactory import Playerfactory
 
-prova = pygame.image.load("res/characters/terra_down.png")
-prova = pygame.transform.scale(prova, (prova.get_size()[0] * 2, prova.get_size()[1] * 2))
-sas = pygame.rect.Rect(0, 0, 1280, 720)
-prova1 = pygame.image.load("res/world_1/softblock_0.png")
-# prova1 = pygame.transform.scale(prova1, (prova1.get_size()[0] + 44, prova1.get_size()[1] + 44))
-prova2 = pygame.transform.scale(prova, (50, 80))
-
 
 class Gamepanel:
-    def __init__(self, screen, SCREEN_WIDTH, SCREEN_HEIGHT, fps=30, character="Terra", world_level=(0, 0)):
+    def __init__(self, screen, SCREEN_WIDTH, SCREEN_HEIGHT, fps=30, character="Terra", world_level=(1, 1)):
         self.screen = screen
         self.SCREEN_WIDTH = SCREEN_WIDTH
         self.SCREEN_HEIGHT = SCREEN_HEIGHT
@@ -39,8 +32,7 @@ class Gamepanel:
         # da usare 4
         self.timeToHurry = None
 
-        Playerfactory.terra()
-
+        self.backgroundInit()
         self.characterInit()
         self.maincycle()
 
@@ -91,7 +83,7 @@ class Gamepanel:
                 elif tmp is levelfactory.Part["SOFTBLOCK"]:
                     self.softblocks.append(Softblock(initx, inity, self.screen))
                 elif tmp is levelfactory.Part["PLAYER"]:
-                    self.player = Protagonist(initx, inity, self.screen, self.coll_rect, self.bombs)
+                    self.player = Protagonist(initx + 5, inity, self.screen, self.coll_rect, self.bombs)
                 elif tmp is levelfactory.Part["ENEMY"]:
                     self.enemies.append(Enemy(initx, inity, self.screen, self.coll_rect))
                 initx += 60
@@ -108,3 +100,7 @@ class Gamepanel:
                 return levelfactory.LevelFactory.world_1()
         else:
             return levelfactory.LevelFactory.world_1()
+
+    def backgroundInit(self):
+        if self.world == 1:
+            self.screen.blit(pygame.image.load("res/world_1/background_1.png"), (0, 0))
