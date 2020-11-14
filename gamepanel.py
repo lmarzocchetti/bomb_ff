@@ -2,7 +2,7 @@ import pygame
 import levelfactory
 from hardblock import Hardblock
 from softblock import Softblock
-from protagonist import Protagonist
+from protagonist import Protagonist, Directions
 from enemy import Enemy
 from playerfactory import Playerfactory
 
@@ -15,7 +15,7 @@ class Gamepanel:
         self.isRunning = True
         self.fps = fps
         self.character = character
-        self.coll_rect = pygame.rect.Rect(0, 0, 780, 660)
+        self.coll_rect = pygame.rect.Rect(20, 30, 780, 660)
         self.world, self.level = world_level[0], world_level[1]
         self.clock = pygame.time.Clock()
         self.board = self.levelInit()
@@ -32,7 +32,6 @@ class Gamepanel:
         # da usare 4
         self.timeToHurry = None
 
-        self.backgroundInit()
         self.characterInit()
         self.maincycle()
 
@@ -41,24 +40,60 @@ class Gamepanel:
         Initialize the clock at fps rate
         :return: None
         """
-        self.clock.tick(self.fps)
-
         while self.isRunning:
-            pygame.draw.rect(self.screen, (255, 255, 255), self.coll_rect, 2)
+            self.clock.tick(self.fps)
 
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.isRunning = False
+
+            self.eventHandler()
+            self.controlCollision()
             self.redrawGameWindow()
-
             pygame.display.update()
+
+    def eventHandler(self):
+        key = pygame.key.get_pressed()
+
+        if self.player.isAlive:
+            if key[pygame.K_LEFT]:
+                self.player.walkCount += 1
+                self.player.walking = Directions["LEFT"]
+                self.player.looking = Directions["LEFT"]
+                self.player.moveLeft()
+            elif key[pygame.K_RIGHT]:
+                self.player.walkCount += 1
+                self.player.walking = Directions["RIGHT"]
+                self.player.looking = Directions["RIGHT"]
+                self.player.moveRight()
+            elif key[pygame.K_UP]:
+                self.player.walkCount += 1
+                self.player.walking = Directions["UP"]
+                self.player.looking = Directions["UP"]
+                self.player.moveUp()
+            elif key[pygame.K_DOWN]:
+                self.player.walkCount += 1
+                self.player.walking = Directions["DOWN"]
+                self.player.looking = Directions["DOWN"]
+                self.player.moveDown()
+            else:
+                self.player.walkCount = 0
+                self.player.walking = Directions["STAY"]
+
+    def controlCollision(self):
+        pass
 
     def redrawGameWindow(self):
         """
         Draw all the entities in the game
         :return: None
         """
-        self.player.draw()
+        pygame.draw.rect(self.screen, (0, 0, 0), pygame.rect.Rect(0, 0, 20, 720))
+        pygame.draw.rect(self.screen, (0, 0, 0), pygame.rect.Rect(0, 0, 1280, 30))
+        pygame.draw.rect(self.screen, (0, 0, 0), pygame.rect.Rect(0, 0, 20, 720))
+        pygame.draw.rect(self.screen, (0, 0, 0), pygame.rect.Rect(0, 0, 20, 720))
 
-        for enemy in self.enemies:
-            enemy.draw()
+        self.backgroundInit()
 
         for hb in self.hardblocks:
             hb.draw()
@@ -66,14 +101,19 @@ class Gamepanel:
         for sb in self.softblocks:
             sb.draw()
 
+        for enemy in self.enemies:
+            enemy.draw()
+
+        self.player.draw()
+
     def characterInit(self):
         """
         Based on the board variable, initialize the class respect to this
         board and store in vectors
         :return: None
         """
-        initx = 0
-        inity = 0
+        initx = 20
+        inity = 30
 
         for i in range(11):
             for j in range(13):
@@ -83,12 +123,12 @@ class Gamepanel:
                 elif tmp is levelfactory.Part["SOFTBLOCK"]:
                     self.softblocks.append(Softblock(initx, inity, self.screen))
                 elif tmp is levelfactory.Part["PLAYER"]:
-                    self.player = Protagonist(initx + 5, inity, self.screen, self.coll_rect, self.bombs)
+                    self.player = Protagonist(initx, inity, self.screen, self.coll_rect, self.bombs)
                 elif tmp is levelfactory.Part["ENEMY"]:
                     self.enemies.append(Enemy(initx, inity, self.screen, self.coll_rect))
                 initx += 60
             inity += 60
-            initx = 0
+            initx = 20
 
     def levelInit(self):
         """
@@ -103,4 +143,4 @@ class Gamepanel:
 
     def backgroundInit(self):
         if self.world == 1:
-            self.screen.blit(pygame.image.load("res/world_1/background_1.png"), (0, 0))
+            self.screen.blit(pygame.image.load("res/world_1/background_1.png"), (20, 30))

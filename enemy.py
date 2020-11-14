@@ -12,4 +12,4 @@ class Enemy(Player):
     def draw(self):
         if self.isAlive:
             # aggiustare lo spawnpoint del disegno spostare in alto (?)
-            self.screen.blit(self.sprites["up"][0], (self.x, self.y))
+            self.screen.blit(self.sprites["up"][0], (self.x + 5, self.y - 20))
