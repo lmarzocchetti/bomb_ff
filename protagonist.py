@@ -49,7 +49,8 @@ class Protagonist(Player):
                 elif self.walking is Directions["LEFT"]:
                     self.screen.blit(self.sprite_horiz[self.walkCount // self.animationsNumber], tempvar)
                 else:
-                    self.screen.blit(pygame.transform.flip(self.sprite_horiz[self.walkCount // self.animationsNumber], True, False), tempvar)
+                    self.screen.blit(pygame.transform.flip(
+                        self.sprite_horiz[self.walkCount // self.animationsNumber], True, False), tempvar)
 
     def initChar(self):
         if self.character is "Terra":
