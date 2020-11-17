@@ -4,7 +4,6 @@ from hardblock import Hardblock
 from softblock import Softblock
 from protagonist import Protagonist, Directions
 from enemy import Enemy
-from playerfactory import Playerfactory
 
 
 class Gamepanel:
@@ -76,6 +75,9 @@ class Gamepanel:
                 self.player.walking = Directions["DOWN"]
                 self.player.looking = Directions["DOWN"]
                 self.player.moveDown()
+            # da modificare
+            elif key[pygame.K_SPACE]:
+                pass
             else:
                 self.player.walkCount = 0
                 self.player.walking = Directions["STAY"]
@@ -88,10 +90,8 @@ class Gamepanel:
         Draw all the entities in the game
         :return: None
         """
-        pygame.draw.rect(self.screen, (0, 0, 0), pygame.rect.Rect(0, 0, 20, 720))
+        # pygame.draw.rect(self.screen, (0, 0, 0), pygame.rect.Rect(0, 0, 20, 720))
         pygame.draw.rect(self.screen, (0, 0, 0), pygame.rect.Rect(0, 0, 1280, 30))
-        pygame.draw.rect(self.screen, (0, 0, 0), pygame.rect.Rect(0, 0, 20, 720))
-        pygame.draw.rect(self.screen, (0, 0, 0), pygame.rect.Rect(0, 0, 20, 720))
 
         self.backgroundInit()
 
