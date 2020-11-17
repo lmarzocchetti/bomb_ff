@@ -4,6 +4,13 @@ import pygame
 class Blockfactory:
 
     @staticmethod
+    def bombs():
+        ret = [pygame.transform.scale(pygame.image.load("res/misc/bomb_1.png"), (60, 60)),
+               pygame.transform.scale(pygame.image.load("res/misc/bomb_2.png"), (60, 60)),
+               pygame.transform.scale(pygame.image.load("res/misc/bomb_3.png"), (60, 60))]
+        return ret
+
+    @staticmethod
     def blocks_1():
         ret = {"hardblock": pygame.transform.scale(pygame.image.load("res/world_1/hardblock.png"), (60, 60)),
                "softblock": [pygame.transform.scale(pygame.image.load("res/world_1/softblock_0.png"), (60, 60)),

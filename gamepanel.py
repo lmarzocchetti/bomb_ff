@@ -4,6 +4,7 @@ from hardblock import Hardblock
 from softblock import Softblock
 from protagonist import Protagonist, Directions
 from enemy import Enemy
+from bomb import Bomb
 
 
 class Gamepanel:
@@ -77,7 +78,7 @@ class Gamepanel:
                 self.player.moveDown()
             # da modificare
             elif key[pygame.K_SPACE]:
-                pass
+                self.bombs.append(Bomb(self.player.x, self.player.y, self.screen))
             else:
                 self.player.walkCount = 0
                 self.player.walking = Directions["STAY"]
@@ -100,6 +101,9 @@ class Gamepanel:
 
         for sb in self.softblocks:
             sb.draw()
+
+        for bomb in self.bombs:
+            bomb.draw()
 
         for enemy in self.enemies:
             enemy.draw()
