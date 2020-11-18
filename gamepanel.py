@@ -32,7 +32,11 @@ class Gamepanel:
         # da usare 4
         self.timeToHurry = None
 
-        self.characterInit()
+        self.temp = [[0 for i in range(13)]for j in range(11)]
+
+        self.carinit()
+
+        #self.characterInit()
         self.maincycle()
 
     def maincycle(self):
@@ -51,7 +55,6 @@ class Gamepanel:
             self.controlCollision()
             self.redrawGameWindow()
             pygame.display.update()
-
     def eventHandler(self):
         key = pygame.key.get_pressed()
 
@@ -96,19 +99,24 @@ class Gamepanel:
 
         self.backgroundInit()
 
-        for hb in self.hardblocks:
-            hb.draw()
+        #for hb in self.hardblocks:
+        #    hb.draw()
 
-        for sb in self.softblocks:
-            sb.draw()
+        #for sb in self.softblocks:
+        #    sb.draw()
 
-        for bomb in self.bombs:
-            bomb.draw()
+        #for bomb in self.bombs:
+        #    bomb.draw()
 
-        for enemy in self.enemies:
-            enemy.draw()
+        #for enemy in self.enemies:
+        #    enemy.draw()
 
-        self.player.draw()
+        #self.player.draw()
+
+        for i in range(11):
+            for j in range(13):
+                if self.temp[i][j] != 0:
+                    self.temp[i][j].draw()
 
     def characterInit(self):
         """
@@ -127,9 +135,31 @@ class Gamepanel:
                 elif tmp is levelfactory.Part["SOFTBLOCK"]:
                     self.softblocks.append(Softblock(initx, inity, self.screen))
                 elif tmp is levelfactory.Part["PLAYER"]:
-                    self.player = Protagonist(initx, inity, self.screen, self.coll_rect, self.bombs)
+                    self.player = Protagonist(initx, inity, self.screen, self.coll_rect, self.board, self.bombs)
                 elif tmp is levelfactory.Part["ENEMY"]:
-                    self.enemies.append(Enemy(initx, inity, self.screen, self.coll_rect))
+                    self.enemies.append(Enemy(initx, inity, self.screen, self.coll_rect, self.board))
+                initx += 60
+            inity += 60
+            initx = 20
+
+    def carinit(self):
+        initx = 20
+        inity = 30
+
+        for i in range(11):
+            for j in range(13):
+                tmp = self.board[i][j]
+                if tmp is levelfactory.Part["HARDBLOCK"]:
+                    self.temp[i][j] = Hardblock(initx, inity, self.screen)
+                elif tmp is levelfactory.Part["SOFTBLOCK"]:
+                    self.temp[i][j] = Softblock(initx, inity, self.screen)
+                elif tmp is levelfactory.Part["PLAYER"]:
+                    self.temp[i][j] = Protagonist(initx, inity, self.screen, self.coll_rect, self.board, self.bombs)
+                    self.player = self.temp[i][j]
+                elif tmp is levelfactory.Part["ENEMY"]:
+                    self.temp[i][j] = Enemy(initx, inity, self.screen, self.coll_rect, self.board)
+                else:
+                    self.temp[i][j] = 0
                 initx += 60
             inity += 60
             initx = 20

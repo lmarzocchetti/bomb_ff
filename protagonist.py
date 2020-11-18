@@ -4,8 +4,8 @@ from playerfactory import Playerfactory
 
 
 class Protagonist(Player):
-    def __init__(self, x, y, screen, coll_rect, bomb_vec, character="Terra"):
-        super(Protagonist, self).__init__(x, y, screen, coll_rect)
+    def __init__(self, x, y, screen, coll_rect, board, bomb_vec, character="Terra"):
+        super(Protagonist, self).__init__(x, y, screen, coll_rect, board)
         self.goNextLevel = False
         self.health = 4
         self.lives = 3
