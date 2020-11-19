@@ -53,7 +53,7 @@ class Protagonist(Player):
                         self.sprite_horiz[self.walkCount // self.animationsNumber], True, False), tempvar)
 
     def initChar(self):
-        if self.character is "Terra":
+        if self.character == "Terra":
             self.assignDict(Playerfactory.terra())
 
     def assignDict(self, Dict):
