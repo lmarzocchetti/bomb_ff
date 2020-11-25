@@ -116,7 +116,11 @@ class Gamepanel:
         for i in range(11):
             for j in range(13):
                 if self.temp[i][j] != 0:
+                    if i == 0 and j == 0:
+                        continue
                     self.temp[i][j].draw()
+
+        self.temp[0][0].draw()
 
     def characterInit(self):
         """
