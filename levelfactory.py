@@ -3,6 +3,7 @@ from random import randint
 
 
 class Part(Enum):
+    NONE = 0
     HARDBLOCK = 1
     SOFTBLOCK = 2
     PLAYER = 3
@@ -23,10 +24,10 @@ class LevelFactory:
         while i != 0:
             randcols = randint(0, 12)
             randraws = randint(0, 10)
-            if board[randraws][randcols] != 0 or (randraws, randcols) == (0, 1) or (randraws, randcols) == (1, 0):
+            if board[randraws][randcols] != Part["NONE"] or (randraws, randcols) == (0, 1) or (randraws, randcols) == (1, 0):
                 continue
             else:
-                board[randraws][randcols] = Part.SOFTBLOCK
+                board[randraws][randcols] = Part["SOFTBLOCK"]
                 i -= 1
 
     @staticmethod
@@ -42,10 +43,10 @@ class LevelFactory:
         while i != 0:
             randcols = randint(0, 12)
             randraws = randint(0, 10)
-            if board[randraws][randcols] != 0 or randraws <= 3 or randcols <= 5:
+            if board[randraws][randcols] != Part["NONE"] or randraws <= 3 or randcols <= 5:
                 continue
             else:
-                board[randraws][randcols] = Part.ENEMY
+                board[randraws][randcols] = Part["ENEMY"]
                 i -= 1
 
     @staticmethod
@@ -62,7 +63,7 @@ class LevelFactory:
         Set the player, and call 2 function to populate this gameboard with softblocks and enemies
         :return: a 2D array which represent the new gameboard.
         """
-        board = [[0 for x in range(13)]for y in range(11)]
+        board = [[Part["NONE"] for x in range(13)]for y in range(11)]
 
         board[0][0] = Part['PLAYER']
 

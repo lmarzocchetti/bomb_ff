@@ -32,7 +32,7 @@ class Gamepanel:
         # da usare 4
         self.timeToHurry = None
 
-        self.temp = [[0 for i in range(13)]for j in range(11)]
+        self.temp = [[levelfactory.Part["NONE"] for i in range(13)]for j in range(11)]
 
         self.carinit()
 
@@ -55,6 +55,7 @@ class Gamepanel:
             self.controlCollision()
             self.redrawGameWindow()
             pygame.display.update()
+
     def eventHandler(self):
         key = pygame.key.get_pressed()
 
@@ -105,8 +106,8 @@ class Gamepanel:
         #for sb in self.softblocks:
         #    sb.draw()
 
-        #for bomb in self.bombs:
-        #    bomb.draw()
+        for bomb in self.bombs:
+            bomb.draw()
 
         #for enemy in self.enemies:
         #    enemy.draw()
@@ -115,7 +116,7 @@ class Gamepanel:
 
         for i in range(11):
             for j in range(13):
-                if self.temp[i][j] != 0:
+                if self.temp[i][j] != levelfactory.Part["NONE"]:
                     if i == 0 and j == 0:
                         continue
                     self.temp[i][j].draw()
@@ -162,8 +163,6 @@ class Gamepanel:
                     self.player = self.temp[i][j]
                 elif tmp is levelfactory.Part["ENEMY"]:
                     self.temp[i][j] = Enemy(initx, inity, self.screen, self.coll_rect, self.board)
-                else:
-                    self.temp[i][j] = 0
                 initx += 60
             inity += 60
             initx = 20
