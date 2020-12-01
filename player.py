@@ -22,6 +22,7 @@ class Player(Entity):
         self.coll_rect = coll_rect
         self.board = board
         self.position = [0, 0]
+        self.classBoard = None
 
     def controlBoard(self):
         tmpy = round(self.x / 60)
@@ -37,10 +38,11 @@ class Player(Entity):
         self.velocity = 0
 
     def moveUp(self):
-        if self.y - self.velocity >= self.coll_rect.top:
-            self.y -= self.velocity
-            self.hitbox.top -= self.velocity
-            self.controlBoard()
+        if not self.controlCollision("up"):
+            if self.y - self.velocity >= self.coll_rect.top:
+                self.y -= self.velocity
+                self.hitbox.top -= self.velocity
+                self.controlBoard()
 
     def moveDown(self):
         if self.y + self.velocity + self.sprite_height <= self.coll_rect.top + self.coll_rect.height:
@@ -59,3 +61,16 @@ class Player(Entity):
             self.x += self.velocity
             self.hitbox.left += self.velocity
             self.controlBoard()
+
+    def controlCollision(self, move):
+        if "up" == move:
+            if tmp := self.classBoard[self.position[1]][self.position[0] + 1] is not Part["NONE"]:
+                return tmp.getHitbox.colliderect(self.hitbox)
+        else:
+            return False
+
+    def getPosition(self):
+        return self.position
+
+    def setClassBoard(self, classBoard):
+        self.classBoard = classBoard

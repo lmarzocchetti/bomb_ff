@@ -167,6 +167,8 @@ class Gamepanel:
             inity += 60
             initx = 20
 
+        self.player.setClassBoard(self.temp)
+
     def levelInit(self):
         """
         simple ifs and elifs
