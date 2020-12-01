@@ -17,5 +17,5 @@ class Entity:
     def getY(self):
         return self.y
 
-    def getHibox(self):
+    def getHitbox(self):
         return self.hitbox

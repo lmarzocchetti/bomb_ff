@@ -121,7 +121,7 @@ class Gamepanel:
                         continue
                     self.temp[i][j].draw()
 
-        self.temp[0][0].draw()
+        self.player.draw()
 
     def characterInit(self):
         """
@@ -172,7 +172,7 @@ class Gamepanel:
     def levelInit(self):
         """
         simple ifs and elifs
-        :return: boardgame as an 2D array of 0(anything), and the "Part" enumeration
+        :return: boardgame as an 2D array of "Part" enumeration
         """
         if self.world == 1:
             if self.level == 1:
